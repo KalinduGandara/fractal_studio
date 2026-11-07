@@ -110,7 +110,10 @@ def build_parser() -> argparse.ArgumentParser:
 
 
 def main(argv: list[str] | None = None) -> int:
-    a = build_parser().parse_args(argv)
+    ap = build_parser()
+    a = ap.parse_args(argv)
+    if getattr(a, "music", None) is not None and not a.music.is_file():
+        ap.error(f"--music: file not found: {a.music}")
     if a.cmd == "list-targets":
         for t in TARGETS.values():
             print(f"{t.name:18s} {t.kind:13s} zoom {t.zoom:7.0e}  palette {t.palette:7s} {t.desc}")

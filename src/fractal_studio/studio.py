@@ -77,6 +77,8 @@ def render_video(scene: ZoomScene | JuliaScene, opts: RenderOptions) -> dict:
     """
     if opts.width % 2 or opts.height % 2:
         raise ValueError("width and height must be even (yuv420p)")
+    if opts.music is not None and not Path(opts.music).is_file():
+        raise FileNotFoundError(f"music file not found: {opts.music}")
     zoom_mode = isinstance(scene, ZoomScene)
     tg = scene.target if zoom_mode else None
     palette = opts.palette or (tg.palette if tg else "neon")
