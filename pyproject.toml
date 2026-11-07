@@ -1,0 +1,37 @@
+[project]
+name = "fractal-studio"
+version = "0.1.0"
+description = "Automated fractal zoom / morph videos with ambient soundtrack and social export pack"
+readme = "README.md"
+authors = [
+    { name = "KalinduGandara", email = "kalindugandara16@gmail.com" }
+]
+requires-python = ">=3.12"
+dependencies = [
+    "numba>=0.68.1",
+    "numpy>=2.5.4",
+]
+
+[project.scripts]
+fractal = "fractal_studio.cli:main"
+
+[build-system]
+requires = ["uv_build>=0.13.5,<0.14.0"]
+build-backend = "uv_build"
+
+[dependency-groups]
+dev = [
+    "pytest>=9.2.0",
+    "ruff>=0.17.4",
+]
+
+[tool.pytest.ini_options]
+testpaths = ["tests"]
+addopts = "-q"
+
+[tool.ruff]
+line-length = 100
+src = ["src", "tests"]
+
+[tool.ruff.lint]
+select = ["E", "F", "I", "B", "UP", "SIM"]
