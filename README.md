@@ -2,7 +2,9 @@
 
 Automated fractal videos for faceless social channels: Mandelbrot and Burning Ship deep zooms
 (down to 10 trillion x) and seamlessly looping Julia set morphs, each with a generated ambient
-soundtrack and a ready-to-upload export pack (video, thumbnail, title/description/hashtags).
+soundtrack and an export pack (video, thumbnail, title/description/hashtags) that you review
+and upload by hand. `release pack out/<stem>.mp4` (the `../release` tool) turns it into a review
+folder with an `UPLOAD.md` checklist per platform.
 
 ```bash
 uv sync
@@ -18,7 +20,7 @@ Every render writes to `out/` (or `--out DIR`):
 |---|---|
 | `<stem>.mp4` | H.264 yuv420p (+faststart), AAC 48 kHz stereo, default 1080x1920 @ 30 fps |
 | `<stem>_thumb.png` | a frame near the end of the zoom (`--thumb-at 0.9`), full size |
-| `<stem>_post.json` | `title`, `description`, `hashtags`, per-platform overrides (YouTube defaults to `private`) |
+| `<stem>_post.json` | `title`, `description`, `hashtags`, per-platform overrides (`privacy` is informational; visibility is set when uploading) |
 | `<stem>.json` | render metadata: target, zoom, palette, seed, keyframes, `seconds_per_frame` |
 
 ## What you can make
