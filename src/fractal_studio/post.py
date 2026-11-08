@@ -92,10 +92,11 @@ def build_post(
         dict.fromkeys(
             KIND_TAGS[kind]
             + BASE_TAGS
-            + (["shorts"] if vertical and not long_form else [])
             + (["sleepmusic", "studymusic"] if long_form else [])
         )
     )
+    # #shorts is YouTube-only; on TikTok/Instagram/Facebook it marks a cross-post.
+    yt_tags = tags + (["shorts"] if vertical and not long_form else [])
     hashline = " ".join(f"#{t}" for t in tags)
     sound_line = ""
     if sound == "synth":
@@ -113,6 +114,9 @@ def build_post(
     )
     cta = "Follow for a new fractal every day. Which fractal should we explore next?"
     description = "\n\n".join(p for p in (hook, tech, sound_line, cta, hashline) if p)
+    yt_description = "\n\n".join(
+        p for p in (hook, tech, sound_line, cta, " ".join(f"#{t}" for t in yt_tags)) if p
+    )
 
     short_tags = tags[:6] + (["fyp"] if vertical else [])
     caption = f"{title} {' '.join(f'#{t}' for t in short_tags)}"
@@ -123,8 +127,8 @@ def build_post(
         "platforms": {
             "youtube": {
                 "title": title,
-                "description": description,
-                "tags": tags,
+                "description": yt_description,
+                "tags": yt_tags,
                 "privacy": "private",
                 "category_id": "24",
                 "made_for_kids": False,

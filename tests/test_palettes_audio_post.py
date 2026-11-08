@@ -116,6 +116,11 @@ def test_post_contract():
             assert p["hashtags"] and all(not h.startswith("#") for h in p["hashtags"])
             assert set(p["platforms"]) == {"youtube", "tiktok", "instagram", "facebook"}
             assert p["platforms"]["youtube"]["privacy"] == "private"
+            # #shorts only on YouTube, and only for vertical Shorts
+            assert "shorts" not in p["hashtags"]
+            for plat in ("tiktok", "instagram", "facebook"):
+                assert "#shorts" not in json.dumps(p["platforms"][plat])
+            assert ("shorts" in p["platforms"]["youtube"]["tags"]) == (dur < 60)
 
 
 def test_zoom_words():
